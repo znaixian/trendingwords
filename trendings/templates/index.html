@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>A Dynamic Interface to Apply Weighting</title>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" />
+</head>
+
+<body>
+    <div>
+        <nav class="navbar navbar-dark bg-primary text-white justify-content-between">
+            <a class="navbar-brand">A Dynamic Interface to View Trending Words</a>
+        </nav>
+    </div>
+    <div class="m-20">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="block-container">
+                    <div class="block-header">
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="calculation_method">country&nbsp;<span class="text-red">*</span></label>
+                                    <input type="text" name="country" class="form-control mb-2 mr-sm-2"
+                                        style="height: 44px;" />
+                                    {% if error_dict %}
+                                    <span class="text-red">{{error_dict.error}}</span>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="threshold" class="mr-sm-2">Placeholder:&nbsp;<span
+                                            class="text-red">*</span></label>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" id="Placeholder"
+                                        name="Placeholder" style="height: 44px;">
+                                    {% if error_dict %}
+                                    <span class="text-red">{{error_dict.error}}</span>
+                                    {% endif %}
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <button type="submit" class="btn btn-success m-t-35">Submit</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--START : Version 1-->
+        {% if dt_html and not error_dict%}
+        <table>
+            <tbody style="height:8px">
+                {{ dt_html | safe }}
+            </tbody>
+        </table>
+        {% endif %}
+        <!--END : Version 1-->
+</body>
+
+</html>
